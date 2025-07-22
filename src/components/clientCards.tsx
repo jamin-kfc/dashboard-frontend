@@ -1,0 +1,99 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+import { Input } from "./ui/input"
+import { Label } from "./ui/label"
+
+import { useState, type ChangeEventHandler } from "react"
+
+const URL = "http://127.0.0.1:5000/api/clients/"
+const NUM_ENTRIES = 5;
+type objClientCardCodeData = {
+    cardName: string
+    cardCode: string
+}[];
+
+
+const response = await fetch(URL);
+if (!response.ok) {
+    console.log("Error fetching cardNames");
+}
+const users: objClientCardCodeData = await response.json();
+
+
+
+export function ClientCards() {
+    const [searchItem, setSearchItem] = useState('');
+    const [filteredUsers, setFilteredUsers] = useState(users);
+    const [shownUsers, setShownUsers] = useState(filteredUsers)
+
+    const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+        const searchTerm = e.target.value;
+        setSearchItem(searchTerm);
+        setFilteredUsers(
+            users.filter(
+                (user) => user.cardName.toLowerCase().includes(searchTerm.toLowerCase())
+            ));
+        
+        const topNClients = filteredUsers.slice(0,9);
+        const l = topNClients.length;
+        for (let i = 0; i < NUM_ENTRIES - l; i++) {
+            topNClients.push({"cardCode": "-", "cardName": "-"})
+        }
+        setShownUsers(topNClients);
+    }
+
+    return (
+    <>
+        <Card className="py-0">
+        <CardHeader className="flex flex-col items-stretch border-b !p-0 sm:flex-row">
+            <div className="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:!py-0">
+                <CardTitle>Client Cards</CardTitle>
+                <CardDescription>Find client codes by their name.</CardDescription>
+            </div>
+            <div className="flex relative z-30 flex flex-1 flex-row justify-center gap-3 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
+                <Label htmlFor="cardName">Card name</Label>
+                <Input
+                    id="cardName"
+                    type="text"
+                    placeholder="Search Card Name"
+                    value={searchItem}
+                    onChange={handleInputChange}
+                />
+            </div>
+        </CardHeader>
+        <CardContent>      
+            <Table>
+                <TableHeader>
+                <TableRow>
+                    <TableHead className="w-[100px]">Card Code</TableHead>
+                    <TableHead className="text-center">CardName</TableHead>
+                </TableRow>
+                </TableHeader>
+                <TableBody>
+                {shownUsers.slice(0, NUM_ENTRIES).map(clientCard =>
+                    <TableRow key={clientCard.cardCode}>
+                        <TableCell className="font-medium">{clientCard.cardCode}</TableCell>
+                        <TableCell className="text-center">{clientCard.cardName}</TableCell>
+                    </TableRow>
+                )}
+                </TableBody>
+            </Table>
+        </CardContent>
+        </Card>
+    </>)
+}

@@ -1,0 +1,201 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
+import { Input } from "@/components/ui/input"
+import { Button } from "./ui/button"
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+
+
+const chartConfig = {
+    uoms: {
+        label: "UoM",
+    },
+    orders: {
+        label: "CardNames",
+        color: "var(--chart-1)"
+    }
+} satisfies ChartConfig
+
+import { useState, useEffect } from 'react';
+
+type Orders = {
+  invDate: string
+  quantityOrdered: string
+}[]
+
+type OrderData = {
+  orders: Orders
+}
+
+export function OrderHistoryBarChart() {
+  const [cardCode, setCardCode] = useState('C01667')
+  const [sDate, setSDate] = useState('2019-01-01');
+  const [eDate, setEDate] = useState('2019-12-31');
+  const url = `http://127.0.0.1:5000/api/orders/${cardCode}/?startDate=${sDate}&endDate=${eDate}`
+  const [graphData, setGraphData] = useState<OrderData>();
+  const [displayCardCode, setDisplayCardCode] = useState(cardCode);
+  const [displaySDate, setDisplaySDate] = useState(sDate);
+  const [displayEDate, setDisplayEDate] = useState(eDate);  
+
+  const fetchData = async () => {
+      fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        } return response;
+      })
+      .then(response => response.json())
+      .then(data => {
+        setGraphData(data);
+      })
+  };
+  useEffect(() => {
+    fetchData();
+  }, [cardCode, sDate, eDate])
+
+  function handleSearchClick() {
+    setCardCode(displayCardCode);
+    setSDate(displaySDate);
+    setEDate(displayEDate);
+  }
+
+
+
+  
+  return (
+  <>
+      <Card className="py-2">
+      <CardHeader>
+          <div className="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:!py-0">
+              <CardTitle>Order History</CardTitle>
+              <CardDescription>Measured by UoM</CardDescription>
+          </div>
+          <div className="flex relative z-30 flex flex-1 flex-row justify-center gap-3 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
+              
+              <span className="text-muted-foreground text-xs">
+                  Card Code:
+              </span>
+              <Popover>
+              <PopoverTrigger asChild>
+                <span className="text-lg leading-none font-bold sm:text-2xl">
+                  <Button variant="outline">{displayCardCode}</Button>
+                </span>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Input 
+                  placeholder='Enter Card Code' 
+                  onChange={e => setDisplayCardCode(e.target.value)}
+                />
+              </PopoverContent>
+              </Popover>
+
+              <span className="text-muted-foreground text-xs">
+                  From:
+              </span>
+
+              <Popover>
+              <PopoverTrigger asChild>
+                <span className="text-lg leading-none font-bold sm:text-2xl">
+                  <Button variant="outline">{displaySDate}</Button>
+                </span>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Input 
+                  placeholder='yyyy-mm-dd' 
+                  onChange={e => setDisplaySDate(e.target.value)}
+                />
+              </PopoverContent>
+              </Popover>
+
+              <span className="text-muted-foreground text-xs">
+                  To:
+              </span>
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <span className="text-lg leading-none font-bold sm:text-2xl">
+                    <Button variant="outline">{displayEDate}</Button>
+                  </span>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <Input 
+                    placeholder='yyyy-mm-dd' 
+                    onChange={e => setDisplayEDate(e.target.value)}
+                  />
+                </PopoverContent>
+              </Popover>
+
+              <Button onClick={handleSearchClick}>Search</Button>
+          </div>
+      </CardHeader>
+      <CardContent className="px-2 sm:p-6">
+          <ChartContainer
+              config={chartConfig}
+              className="aspect-auto h-[250px] w-full"
+          >
+              <BarChart
+              accessibilityLayer
+              data={graphData?.orders}
+              margin={{
+                  left: 12,
+                  right: 12,
+              }}
+              >
+                <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="invDate"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    minTickGap={32}
+                    // tickFormatter={(value) => {
+                    //   const date = new Date(value)
+                    //   return date.toLocaleDateString("en-US", {
+                    //     month: "short",
+                    //     day: "numeric",
+                    //   })
+                    // }}
+                  />
+
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      className="w-[150px]"
+                      nameKey="views"
+                      // labelFormatter={(value) => {
+                      //   return new Date(value).toLocaleDateString("en-US", {
+                      //     month: "short",
+                      //     day: "numeric",
+                      //     year: "numeric",
+                      //   })
+                      // }}
+                    />
+                  }
+                />
+                {/* <Bar dataKey={activeChart} fill={`var(--color-${activeChart})`} /> */}
+                <Bar dataKey="quantityOrdered"></Bar>
+              </BarChart>
+          </ChartContainer>
+
+      </CardContent>
+      </Card>
+  </>)
+}
