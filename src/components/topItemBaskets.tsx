@@ -65,7 +65,7 @@ export default function TopItemBaskets() {
                                 </TableBody>
                             </Table>
                         </CardContent>
-                        </Card>
+                    </Card>
                 </>
             ) : null}
         </>

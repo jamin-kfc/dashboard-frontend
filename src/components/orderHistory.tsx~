@@ -59,6 +59,9 @@ interface OrderHistoryBarChartProps {
 export function OrderHistoryBarChart(
   {cardCode, sDate, eDate, setCardCode, setSDate, setEDate}: OrderHistoryBarChartProps
 ) {
+  // const [cardCode, setCardCode] = useState('C01667')
+  // const [sDate, setSDate] = useState('2019-01-01');
+  // const [eDate, setEDate] = useState('2019-12-31');
   const url = `http://127.0.0.1:5000/api/orders/${cardCode}/?startDate=${sDate}&endDate=${eDate}`
   const [graphData, setGraphData] = useState<OrderData>();
   const [displayCardCode, setDisplayCardCode] = useState(cardCode);
