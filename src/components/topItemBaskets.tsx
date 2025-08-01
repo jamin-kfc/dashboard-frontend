@@ -22,7 +22,8 @@ type topItemBaskets = {
     support: number
 }[]
 
-const url = "http://127.0.0.1:5000/api/102/itemGroups/"
+import { baseUrl } from "../EnvVars.tsx"
+const url = baseUrl + "api/102/itemGroups/"
 
 const response = await fetch(url);
 if (!response.ok) {

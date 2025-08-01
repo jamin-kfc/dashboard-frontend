@@ -17,11 +17,11 @@ import {
 
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
-
+import { baseUrl } from "../EnvVars.tsx"
 import { useState, type ChangeEventHandler } from "react"
 
-const URL = "http://127.0.0.1:5000/api/clients/"
-const NUM_ENTRIES = 5;
+const URL = baseUrl + "api/clients/"
+//const NUM_ENTRIES = 5;
 type objClientCardCodeData = {
     cardName: string
     cardCode: string
@@ -45,11 +45,11 @@ export function ClientCards() {
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
 	setShownUsers([]);
 	setFilteredUsers([]);
-        const searchTerm = e.target.value;
-        setSearchItem(searchTerm);
-	const usersToShow = users.filter( (user) => user.cardName
-					 .toLowerCase()
-					 .includes(searchTerm.toLowerCase()));
+    const searchTerm = e.target.value;
+    setSearchItem(searchTerm);
+	const usersToShow = users.filter( (user) => user.cardName.toLowerCase()
+					 .includes(searchTerm.toLowerCase())  || 
+                     user.cardCode.toLowerCase().includes(searchTerm.toLowerCase()));
 	setShownUsers(usersToShow);
     }
 
@@ -62,18 +62,18 @@ export function ClientCards() {
                 <CardDescription>Find client codes by their name.</CardDescription>
             </div>
             <div className="flex relative z-30 flex flex-1 flex-row justify-center gap-3 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
-                <Label htmlFor="cardName">Card name</Label>
+                <Label htmlFor="cardName">Search</Label>
                 <Input
                     id="cardName"
                     type="text"
-                    placeholder="Search Card Name"
+                    placeholder="Search &quot;Asda&quot; or &quot;C01667&quot;"
                     value={searchItem}
                     onChange={handleInputChange}
                 />
             </div>
         </CardHeader>
         <CardContent>      
-	<div class = "min-h-[300px] max-h-[300px] overflow-y-scroll">
+	<div className = "min-h-[300px] max-h-[300px] overflow-y-scroll">
             <Table>
                 <TableHeader>
                 <TableRow>

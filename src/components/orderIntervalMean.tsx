@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from "react";
 import { Card, CardTitle, CardContent, CardHeader } from "./ui/card";
+import { baseUrl } from "../EnvVars.tsx"
 
 interface OrderIntervalProps {
     cardCode: string
@@ -15,7 +16,8 @@ interface OrderMeanInterval {
 
 export function OrderIntervalMean({cardCode}: OrderIntervalProps) {
 
-  const URL = `http://127.0.0.1:5000/api/orders/${cardCode}/mean/`;
+
+  const URL = baseUrl + `api/orders/${cardCode}/mean/`;
   const [orderIntervalMean, setOrderIntervalMean] = useState<OrderMeanInterval>({mean: 'No mean recevied.'});
   
   const fetchData = async () => {

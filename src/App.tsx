@@ -1,8 +1,6 @@
 import './App.css'
 import { ClientCards } from '@/components/clientCards'
-import { OrderHistoryBarChart } from '@/components/orderHistory'
 import TopItemBaskets from '@/components/topItemBaskets'
-import { OrderIntervalMean } from './components/orderIntervalMean'
 import { CardOrderAnalytics } from './components/cardOrderAnalytics'
 
 

@@ -36,6 +36,7 @@ const chartConfig = {
 
 import { useState, useEffect } from 'react';
 import type {CardCode, StringDate} from '@/components/types'
+import { baseUrl } from "../EnvVars.tsx"
 type Orders = {
   invDate: string
   quantityOrdered: string
@@ -59,7 +60,7 @@ interface OrderHistoryBarChartProps {
 export function OrderHistoryBarChart(
   {cardCode, sDate, eDate, setCardCode, setSDate, setEDate}: OrderHistoryBarChartProps
 ) {
-  const url = `http://127.0.0.1:5000/api/orders/${cardCode}/?startDate=${sDate}&endDate=${eDate}`
+  const url = baseUrl + `api/orders/${cardCode}/?startDate=${sDate}&endDate=${eDate}`
   const [graphData, setGraphData] = useState<OrderData>();
   const [displayCardCode, setDisplayCardCode] = useState(cardCode);
   const [displaySDate, setDisplaySDate] = useState(sDate);
