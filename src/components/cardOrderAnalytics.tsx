@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ClientCards } from '@/components/clientCards'
 import { OrderHistoryBarChart } from '@/components/orderHistory'
 import { OrderIntervalMean } from '@/components/orderIntervalMean'
 export function CardOrderAnalytics() {
@@ -9,6 +10,7 @@ export function CardOrderAnalytics() {
 
 	return (
 	<>
+		<ClientCards cardCode = {cardCode} sDate={sDate} eDate={eDate} setCardCode = {setCardCode} setSDate = {setSDate} setEDate = {setEDate}	/>
 		<OrderHistoryBarChart cardCode = {cardCode} sDate={sDate} eDate={eDate} setCardCode = {setCardCode} setSDate = {setSDate} setEDate = {setEDate}	/>
 		<OrderIntervalMean cardCode = {cardCode} />	
 	</>		

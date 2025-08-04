@@ -19,13 +19,22 @@ import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { baseUrl } from "../EnvVars.tsx"
 import { useState, type ChangeEventHandler } from "react"
+import type { CardCode, StringDate } from '@/components/types'
 
 const URL = baseUrl + "api/clients/"
-//const NUM_ENTRIES = 5;
 type objClientCardCodeData = {
     cardName: string
     cardCode: string
+    slpName:  string
+    slpCode:  string
+    zipCode:  string
 }[];
+import { Button } from "@/components/ui/button"
+
+interface CardAnalyticsProps {
+	cardCode: CardCode
+	setCardCode: (cardCode: CardCode) => void
+}
 
 
 const response = await fetch(URL);
@@ -34,13 +43,10 @@ if (!response.ok) {
 }
 const users: objClientCardCodeData = await response.json();
 
-
-
-export function ClientCards() {
+export function ClientCards({cardCode, setCardCode}: CardAnalyticsProps) {
     const [searchItem, setSearchItem] = useState('');
     const [filteredUsers, setFilteredUsers] = useState(users);
     const [shownUsers, setShownUsers] = useState(filteredUsers)
-
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
 	setShownUsers([]);
@@ -48,8 +54,11 @@ export function ClientCards() {
     const searchTerm = e.target.value;
     setSearchItem(searchTerm);
 	const usersToShow = users.filter( (user) => user.cardName.toLowerCase()
-					 .includes(searchTerm.toLowerCase())  || 
-                     user.cardCode.toLowerCase().includes(searchTerm.toLowerCase()));
+					.includes(searchTerm.toLowerCase())  || 
+                    user.cardCode.toLowerCase()
+                    .includes(searchTerm.toLowerCase())  ||
+                    user.slpName.toLowerCase()
+                    .includes(searchTerm.toLowerCase()));
 	setShownUsers(usersToShow);
     }
 
@@ -66,7 +75,7 @@ export function ClientCards() {
                 <Input
                     id="cardName"
                     type="text"
-                    placeholder="Search &quot;Asda&quot; or &quot;C01667&quot;"
+                    placeholder="Search &quot;Asda&quot; or &quot;C01667&quot; or &quot;Kyeonghwan Choi&quot;"
                     value={searchItem}
                     onChange={handleInputChange}
                 />
@@ -78,14 +87,21 @@ export function ClientCards() {
                 <TableHeader>
                 <TableRow>
                     <TableHead className="w-[100px]">Card Code</TableHead>
-                    <TableHead className="text-center">CardName</TableHead>
+                    <TableHead className="w-[100px]">Sales Code</TableHead>
+                    <TableHead className="text-center">Sales Name</TableHead>
+                    <TableHead className="text-center">Card Name</TableHead>
+                    <TableHead className="text-center">Post Code</TableHead>
+
                 </TableRow>
                 </TableHeader>
                 <TableBody>
                 {shownUsers.map(clientCard =>
-                    <TableRow key={clientCard.cardCode}>
-                        <TableCell className="font-medium">{clientCard.cardCode}</TableCell>
+                    <TableRow className="hover:underline cursor-pointer" onClick={() => setCardCode(clientCard.cardCode)} key={clientCard.cardCode}>
+                        <TableCell className="text-center">{clientCard.cardCode}</TableCell>
+                        <TableCell className="text-center">{clientCard.slpCode}</TableCell>
+                        <TableCell className="text-center">{clientCard.slpName}</TableCell>
                         <TableCell className="text-center">{clientCard.cardName}</TableCell>
+                        <TableCell className="text-center">{clientCard.zipCode}</TableCell>
                     </TableRow>
                 )}
                 </TableBody>

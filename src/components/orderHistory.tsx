@@ -97,7 +97,7 @@ export function OrderHistoryBarChart(
       <CardHeader>
           <div className="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:!py-0">
               <CardTitle>Order History</CardTitle>
-              <CardDescription>Measured by UoM</CardDescription>
+              <CardDescription>DocTotal per invoice date</CardDescription>
           </div>
           <div className="flex relative z-30 flex flex-1 flex-row justify-center gap-3 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
               
@@ -177,13 +177,6 @@ export function OrderHistoryBarChart(
                     axisLine={false}
                     tickMargin={8}
                     minTickGap={32}
-                    // tickFormatter={(value) => {
-                    //   const date = new Date(value)
-                    //   return date.toLocaleDateString("en-US", {
-                    //     month: "short",
-                    //     day: "numeric",
-                    //   })
-                    // }}
                   />
 
                 <ChartTooltip
@@ -191,21 +184,12 @@ export function OrderHistoryBarChart(
                     <ChartTooltipContent
                       className="w-[150px]"
                       nameKey="views"
-                      // labelFormatter={(value) => {
-                      //   return new Date(value).toLocaleDateString("en-US", {
-                      //     month: "short",
-                      //     day: "numeric",
-                      //     year: "numeric",
-                      //   })
-                      // }}
                     />
                   }
                 />
-                {/* <Bar dataKey={activeChart} fill={`var(--color-${activeChart})`} /> */}
-                <Bar dataKey="quantityOrdered"></Bar>
+                <Bar dataKey="totalOrdered"></Bar>
               </BarChart>
           </ChartContainer>
-
       </CardContent>
       </Card>
   </>)
