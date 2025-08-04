@@ -19,7 +19,7 @@ import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { baseUrl } from "../EnvVars.tsx"
 import { useState, type ChangeEventHandler } from "react"
-import type { CardCode, StringDate } from '@/components/types'
+import type { CardCode } from '@/components/types'
 
 const URL = baseUrl + "api/clients/"
 type objClientCardCodeData = {
@@ -29,10 +29,8 @@ type objClientCardCodeData = {
     slpCode:  string
     zipCode:  string
 }[];
-import { Button } from "@/components/ui/button"
 
 interface CardAnalyticsProps {
-	cardCode: CardCode
 	setCardCode: (cardCode: CardCode) => void
 }
 
@@ -43,7 +41,7 @@ if (!response.ok) {
 }
 const users: objClientCardCodeData = await response.json();
 
-export function ClientCards({cardCode, setCardCode}: CardAnalyticsProps) {
+export function ClientCards({setCardCode}: CardAnalyticsProps) {
     const [searchItem, setSearchItem] = useState('');
     const [filteredUsers, setFilteredUsers] = useState(users);
     const [shownUsers, setShownUsers] = useState(filteredUsers)
