@@ -3,7 +3,7 @@
 // Possibly this https://ngrok.com/docs
 
 import { useEffect, useState } from "react";
-import { Card, CardTitle, CardContent, CardHeader } from "./ui/card";
+import { Card, CardTitle, CardContent, CardHeader } from "./ui/card.tsx";
 import { baseUrl } from "../EnvVars.tsx"
 
 interface OrderIntervalProps {
@@ -20,7 +20,7 @@ interface QuarterStatistic {
 }
 
 
-export function OrderIntervalMean({cardCode}: OrderIntervalProps) {
+export function CardStatistics({cardCode}: OrderIntervalProps) {
 
 
   const statURL = baseUrl + `api/orders/${cardCode}/mean/`;

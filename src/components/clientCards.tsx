@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -63,24 +62,23 @@ export function ClientCards({setCardCode}: CardAnalyticsProps) {
     return (
     <>
         <Card className="py-0">
-        <CardHeader className="flex flex-col items-stretch border-b !p-0 sm:flex-row">
+        <CardHeader className="flex flex-col items-stretch border-b !p-0 sm:flex-row min-h-[60px] max-h-[60px]">
             <div className="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:!py-0">
                 <CardTitle>Client Cards</CardTitle>
-                <CardDescription>Find client codes by their name.</CardDescription>
             </div>
-            <div className="flex relative z-30 flex flex-1 flex-row justify-center gap-3 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
+            <div className="flex items-center relative sz-30 flex flex-1 flex-row justify-center gap-3 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
                 <Label htmlFor="cardName">Search</Label>
                 <Input
                     id="cardName"
                     type="text"
-                    placeholder="Search &quot;Asda&quot; or &quot;C01667&quot; or &quot;Kyeonghwan Choi&quot;"
+                    placeholder="&quot;Asda&quot; or &quot;C01667&quot; or &quot;Kyeonghwan Choi&quot;"
                     value={searchItem}
                     onChange={handleInputChange}
                 />
             </div>
         </CardHeader>
         <CardContent>      
-	<div className = "min-h-[300px] max-h-[300px] overflow-y-scroll">
+	<div className = "min-h-[160px] max-h-[160px] overflow-y-scroll">
             <Table>
                 <TableHeader>
                 <TableRow>

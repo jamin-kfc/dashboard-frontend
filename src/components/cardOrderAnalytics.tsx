@@ -10,7 +10,7 @@ export function CardOrderAnalytics() {
 
 	return (
 	<>
-		<ClientCards cardCode = {cardCode} sDate={sDate} eDate={eDate} setCardCode = {setCardCode} setSDate = {setSDate} setEDate = {setEDate}	/>
+		<ClientCards setCardCode={setCardCode} />
 		<OrderHistoryBarChart cardCode = {cardCode} sDate={sDate} eDate={eDate} setCardCode = {setCardCode} setSDate = {setSDate} setEDate = {setEDate}	/>
 		<OrderIntervalMean cardCode = {cardCode} />	
 	</>		

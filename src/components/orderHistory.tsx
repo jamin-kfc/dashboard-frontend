@@ -58,11 +58,10 @@ interface OrderHistoryBarChartProps {
 }
 
 export function OrderHistoryBarChart(
-  {cardCode, sDate, eDate, setCardCode, setSDate, setEDate}: OrderHistoryBarChartProps
+  {cardCode, sDate, eDate, setSDate, setEDate}: OrderHistoryBarChartProps
 ) {
   const url = baseUrl + `api/orders/${cardCode}/?startDate=${sDate}&endDate=${eDate}`
   const [graphData, setGraphData] = useState<OrderData>();
-  const [displayCardCode, setDisplayCardCode] = useState(cardCode);
   const [displaySDate, setDisplaySDate] = useState(sDate);
   const [displayEDate, setDisplayEDate] = useState(eDate);  
 
@@ -101,22 +100,6 @@ export function OrderHistoryBarChart(
           </div>
           <div className="flex relative z-30 flex flex-1 flex-row justify-center gap-3 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
               { 
-              //<span className="text-muted-foreground align-middle text-xs">
-              //    Card Code:
-              //</span>
-              //<Popover>
-              //<PopoverTrigger asChild>
-              //  <span className="text-lg leading-none font-bold sm:text-2xl">
-              //    <Button className = "min-w-[120px]" variant="outline">{displayCardCode}</Button>
-              //  </span>
-              //</PopoverTrigger>
-              //<PopoverContent>
-              //  <Input 
-              //    placeholder='Enter Card Code' 
-              //    onChange={e => setDisplayCardCode(e.target.value)}
-              //  />
-              //</PopoverContent>
-              //</Popover>
 	      }
               <span className="text-muted-foreground text-xs">
                   From:

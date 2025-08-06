@@ -1,5 +1,4 @@
 import './App.css'
-import { ClientCards } from '@/components/clientCards'
 import TopItemBaskets from '@/components/topItemBaskets'
 import { CardOrderAnalytics } from './components/cardOrderAnalytics'
 
@@ -9,7 +8,7 @@ function App() {
   return (
     <>
       <div className='flex flex-col gap-4'>
-	<CardOrderAnalytics />
+	      <CardOrderAnalytics />
         <TopItemBaskets />
       </div>
     </>
