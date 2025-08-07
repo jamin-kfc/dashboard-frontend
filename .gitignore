@@ -25,7 +25,7 @@ dist-ssr
 
 *.tsx~
 *.un~
-
+*.tsx.un~
 public/*
 
 EnvVars.tsx

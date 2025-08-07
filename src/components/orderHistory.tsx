@@ -13,7 +13,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-import { Button } from "./ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 import { DatePicker } from '@/components/datePicker'
@@ -57,8 +56,6 @@ export function OrderHistoryBarChart(
 ) {
   const url = baseUrl + `api/orders/${cardCode}/?startDate=${convertDateToQueryFormat(sDate)}&endDate=${convertDateToQueryFormat(eDate)}`
   const [graphData, setGraphData] = useState<OrderData>();
-  const [displaySDate, setDisplaySDate] = useState(sDate);
-  const [displayEDate, setDisplayEDate] = useState(eDate);
   
 
   const fetchData = async () => {

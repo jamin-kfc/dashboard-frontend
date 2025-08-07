@@ -14,7 +14,7 @@ import {
 import type { DateNul, Setter } from "./types"
 
 interface DatePickerProps {
-    date: Date
+    date: DateNul
     setDate: Setter<DateNul>
     pickerTitle: string
 }

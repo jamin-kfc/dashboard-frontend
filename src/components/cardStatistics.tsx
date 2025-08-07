@@ -126,7 +126,7 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
                 <CardTitle> Past 7 Days Sales </CardTitle>
             </CardHeader>
             <CardContent className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-                {parseInt(salesByWeek.stat).toLocaleString()} 
+                £{parseInt(salesByWeek.stat).toLocaleString()} 
             </CardContent>
           </Card>
 
@@ -135,7 +135,7 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
               <CardTitle> Sales this Month </CardTitle>
           </CardHeader>
           <CardContent className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              {parseInt(salesByMonth.stat).toLocaleString()} 
+              £{parseInt(salesByMonth.stat).toLocaleString()} 
           </CardContent>
         </Card>
     
@@ -144,7 +144,7 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
               <CardTitle> Quarterly Sales </CardTitle>
           </CardHeader>
           <CardContent className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              {salesByQuarter.quarter}: {parseInt(salesByQuarter.quarterlySales).toLocaleString()} 
+              {salesByQuarter.quarter}: £{parseInt(salesByQuarter.quarterlySales).toLocaleString()} 
           </CardContent>
         </Card>
 

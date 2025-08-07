@@ -25,7 +25,6 @@ type objClientCardCodeData = {
     cardName: string
     cardCode: string
     slpName:  string
-    slpCode:  string
     zipCode:  string
 }[];
 
@@ -83,7 +82,6 @@ export function ClientCards({setCardCode}: CardAnalyticsProps) {
                 <TableHeader>
                 <TableRow>
                     <TableHead className="w-[100px]">Card Code</TableHead>
-                    <TableHead className="w-[100px]">Sales Code</TableHead>
                     <TableHead className="text-center">Sales Name</TableHead>
                     <TableHead className="text-center">Card Name</TableHead>
                     <TableHead className="text-center">Post Code</TableHead>
@@ -94,7 +92,6 @@ export function ClientCards({setCardCode}: CardAnalyticsProps) {
                 {shownUsers.map(clientCard =>
                     <TableRow className="hover:underline cursor-pointer" onClick={() => setCardCode(clientCard.cardCode)} key={clientCard.cardCode}>
                         <TableCell className="text-center">{clientCard.cardCode}</TableCell>
-                        <TableCell className="text-center">{clientCard.slpCode}</TableCell>
                         <TableCell className="text-center">{clientCard.slpName}</TableCell>
                         <TableCell className="text-center">{clientCard.cardName}</TableCell>
                         <TableCell className="text-center">{clientCard.zipCode}</TableCell>
