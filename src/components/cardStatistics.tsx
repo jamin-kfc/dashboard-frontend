@@ -11,12 +11,12 @@ interface OrderIntervalProps {
 }
 
 interface CardStatistic {
-  stat: string
+  stat: string 
 }
 
 interface QuarterStatistic {
   quarter: string
-  quarterlySales: string
+  quarterlySales: string 
 }
 
 
@@ -28,11 +28,11 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
   const monthURL = baseUrl + `api/orders/${cardCode}/byMonth/`;
   const quarterURL = baseUrl + `api/orders/${cardCode}/byQuarter/`;
   const recentSaleURL = baseUrl + `api/orders/${cardCode}/recent/`;
-  const [orderIntervalMean, setOrderIntervalMean] = useState<CardStatistic>({stat: 'No stat recevied.'});
-  const [salesByWeek, setSalesByWeek] = useState<CardStatistic>({stat: 'No stat recevied.'});
-  const [salesByMonth, setSalesByMonth] = useState<CardStatistic>({stat: 'No stat recevied.'});
-  const [salesByQuarter, setSalesByQuarter] = useState<QuarterStatistic>({quarter: 'No stat recevied.', quarterlySales: 'No stat received'});
-  const [recentSaleDate, setRecentSaleDate] = useState<CardStatistic>({stat: 'No stat recevied.'});
+  const [orderIntervalMean, setOrderIntervalMean] = useState<CardStatistic>({stat: '0'});
+  const [salesByWeek, setSalesByWeek] = useState<CardStatistic>({stat:'0'});
+  const [salesByMonth, setSalesByMonth] = useState<CardStatistic>({stat: '0'});
+  const [salesByQuarter, setSalesByQuarter] = useState<QuarterStatistic>({quarter: 'No stat recevied.', quarterlySales: '0'});
+  const [recentSaleDate, setRecentSaleDate] = useState<CardStatistic>({stat: '0'});
 
 
   const fetchMean = async () => {
@@ -108,6 +108,7 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
     fetchRecentSale();
   }, [cardCode])
 
+
   return (
     <>
       <div className="grid grid-cols-5 gap-4">
@@ -125,7 +126,7 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
                 <CardTitle> Past 7 Days Sales </CardTitle>
             </CardHeader>
             <CardContent className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-                {salesByWeek.stat} 
+                {parseInt(salesByWeek.stat).toLocaleString()} 
             </CardContent>
           </Card>
 
@@ -134,7 +135,7 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
               <CardTitle> Sales this Month </CardTitle>
           </CardHeader>
           <CardContent className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              {salesByMonth.stat} 
+              {parseInt(salesByMonth.stat).toLocaleString()} 
           </CardContent>
         </Card>
     
@@ -143,7 +144,7 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
               <CardTitle> Quarterly Sales </CardTitle>
           </CardHeader>
           <CardContent className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              {salesByQuarter.quarter}: {salesByQuarter.quarterlySales} 
+              {salesByQuarter.quarter}: {parseInt(salesByQuarter.quarterlySales).toLocaleString()} 
           </CardContent>
         </Card>
 

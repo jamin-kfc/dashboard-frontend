@@ -13,15 +13,10 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-
-import { Input } from "@/components/ui/input"
 import { Button } from "./ui/button"
+import { Badge } from "@/components/ui/badge"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { DatePicker } from '@/components/datePicker'
 
 
 const chartConfig = {
@@ -35,7 +30,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 import { useState, useEffect } from 'react';
-import type {CardCode, StringDate} from '@/components/types'
+import type {CardCode, DateNul} from '@/components/types'
 import { baseUrl } from "../EnvVars.tsx"
 type Orders = {
   invDate: string
@@ -46,24 +41,25 @@ type OrderData = {
   orders: Orders
 }
 
-
+import { convertDateToQueryFormat } from "./helperFuncs.tsx"
 
 interface OrderHistoryBarChartProps {
   cardCode: CardCode
-  sDate: StringDate
-  eDate: StringDate
+  sDate: DateNul
+  eDate: DateNul
   setCardCode: (cardCode: CardCode) => void
-  setSDate: (sDate: StringDate) => void
-  setEDate: (eDate: StringDate) => void
+  setSDate: (sDate: DateNul) => void
+  setEDate: (eDate: DateNul) => void
 }
 
 export function OrderHistoryBarChart(
   {cardCode, sDate, eDate, setSDate, setEDate}: OrderHistoryBarChartProps
 ) {
-  const url = baseUrl + `api/orders/${cardCode}/?startDate=${sDate}&endDate=${eDate}`
+  const url = baseUrl + `api/orders/${cardCode}/?startDate=${convertDateToQueryFormat(sDate)}&endDate=${convertDateToQueryFormat(eDate)}`
   const [graphData, setGraphData] = useState<OrderData>();
   const [displaySDate, setDisplaySDate] = useState(sDate);
-  const [displayEDate, setDisplayEDate] = useState(eDate);  
+  const [displayEDate, setDisplayEDate] = useState(eDate);
+  
 
   const fetchData = async () => {
       fetch(url)
@@ -82,7 +78,6 @@ export function OrderHistoryBarChart(
   }, [cardCode, sDate, eDate])
 
   function handleSearchClick() {
-//    setCardCode(displayCardCode);
     setSDate(displaySDate);
     setEDate(displayEDate);
   }
@@ -98,13 +93,22 @@ export function OrderHistoryBarChart(
               <CardTitle>Order History</CardTitle>
               <CardDescription>DocTotal per invoice date</CardDescription>
           </div>
-          <div className="flex relative z-30 flex flex-1 flex-row justify-center gap-3 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
-              { 
-	      }
+          <div className="flex relative z-30 flex flex-1 flex-row justify-center gap-8 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
+            <div className="">
+              <Badge variant="secondary">{cardCode}</Badge>
+            </div>
+
+            <div>
+              <DatePicker date={sDate} setDate={setSDate} pickerTitle="From:"/>
+            </div>
+            <div>
+              <DatePicker date={eDate} setDate={setEDate} pickerTitle="To:" />
+            </div>
+
+            {/* <div className="">
               <span className="text-muted-foreground text-xs">
                   From:
               </span>
-
               <Popover>
               <PopoverTrigger asChild>
                 <span className="text-lg leading-none font-bold sm:text-2xl">
@@ -118,7 +122,9 @@ export function OrderHistoryBarChart(
                 />
               </PopoverContent>
               </Popover>
+            </div> */}
 
+            {/* <div>
               <span className="text-muted-foreground text-xs">
                   To:
               </span>
@@ -136,6 +142,7 @@ export function OrderHistoryBarChart(
                   />
                 </PopoverContent>
               </Popover>
+            </div> */}
 
               <Button onClick={handleSearchClick}>Search</Button>
           </div>

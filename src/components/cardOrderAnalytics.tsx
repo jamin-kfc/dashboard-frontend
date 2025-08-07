@@ -1,18 +1,24 @@
 import { useState } from "react";
 import { ClientCards } from '@/components/clientCards'
 import { OrderHistoryBarChart } from '@/components/orderHistory'
-import { OrderIntervalMean } from '@/components/orderIntervalMean'
+import { CardStatistics } from '@/components/cardStatistics'
+import type { DateNul } from "./types";
 export function CardOrderAnalytics() {
+	const now = new Date();
+	const aYearAgo = new Date(new Date().setFullYear(now.getFullYear() -1));
+
 	const [cardCode, setCardCode] = useState('C01667');
-	const [sDate, setSDate] = useState('2019-01-01');
-	const [eDate, setEDate] = useState('2019-12-31');
+	const [sDate, setSDate] = useState<DateNul>(aYearAgo);
+	const [eDate, setEDate] = useState<DateNul>(now);
+	// const [sDate, setSDate] = useState(aYearAgo.toISOString().split('T')[0]);
+	// const [eDate, setEDate] = useState(new Date().toISOString().split('T')[0]);
 
 
 	return (
 	<>
 		<ClientCards setCardCode={setCardCode} />
 		<OrderHistoryBarChart cardCode = {cardCode} sDate={sDate} eDate={eDate} setCardCode = {setCardCode} setSDate = {setSDate} setEDate = {setEDate}	/>
-		<OrderIntervalMean cardCode = {cardCode} />	
+		<CardStatistics cardCode = {cardCode} />	
 	</>		
 	
 	)
