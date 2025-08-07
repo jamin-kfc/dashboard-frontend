@@ -77,13 +77,6 @@ export function OrderHistoryBarChart(
     fetchData();
   }, [cardCode, sDate, eDate])
 
-  function handleSearchClick() {
-    setSDate(displaySDate);
-    setEDate(displayEDate);
-  }
-
-
-
   
   return (
   <>
@@ -104,47 +97,6 @@ export function OrderHistoryBarChart(
             <div>
               <DatePicker date={eDate} setDate={setEDate} pickerTitle="To:" />
             </div>
-
-            {/* <div className="">
-              <span className="text-muted-foreground text-xs">
-                  From:
-              </span>
-              <Popover>
-              <PopoverTrigger asChild>
-                <span className="text-lg leading-none font-bold sm:text-2xl">
-                  <Button className = "min-w-[120px]" variant="outline">{displaySDate}</Button>
-                </span>
-              </PopoverTrigger>
-              <PopoverContent>
-                <Input 
-                  placeholder='yyyy-mm-dd' 
-                  onChange={e => setDisplaySDate(e.target.value)}
-                />
-              </PopoverContent>
-              </Popover>
-            </div> */}
-
-            {/* <div>
-              <span className="text-muted-foreground text-xs">
-                  To:
-              </span>
-
-              <Popover>
-                <PopoverTrigger asChild>
-                  <span className="text-lg leading-none font-bold sm:text-2xl">
-                    <Button className = "min-w-[120px]" variant="outline">{displayEDate}</Button>
-                  </span>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <Input 
-                    placeholder='yyyy-mm-dd' 
-                    onChange={e => setDisplayEDate(e.target.value)}
-                  />
-                </PopoverContent>
-              </Popover>
-            </div> */}
-
-              <Button onClick={handleSearchClick}>Search</Button>
           </div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
