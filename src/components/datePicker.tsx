@@ -34,7 +34,7 @@ export function DatePicker({date, setDate, pickerTitle}: DatePickerProps) {
             id="date"
             className="w-48 justify-between font-normal"
           >
-            {date ? date.toLocaleDateString() : "Select date"}
+            {date ? date.toISOString().split('T')[0] : "Select date"}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>
