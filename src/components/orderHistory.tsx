@@ -56,8 +56,21 @@ export function OrderHistoryBarChart(
 ) {
   const url = baseUrl + `api/orders/${cardCode}/?startDate=${convertDateToQueryFormat(sDate)}&endDate=${convertDateToQueryFormat(eDate)}`
   const [graphData, setGraphData] = useState<OrderData>();
-  
+  const [exportURL, setExportURL] = useState('');
 
+  function exportToCSV() {
+	const header = Object.keys(graphData.orders[0]);
+	const replacer = (value) => value == null ? "null" : value;	
+	const contents = graphData.orders.map((entry) => header.map((fieldname) => replacer(entry[fieldname])).join(",")).join("\r\n");
+	return [header.join(','), contents].join("\r\n");
+  }
+
+  function typedArrayToURL(contents, mimeType) {
+	return URL.createObjectURL(
+		new Blob([contents], {type: mimeType}),
+	);
+  }
+ 
   const fetchData = async () => {
       fetch(url)
       .then(response => {
@@ -72,9 +85,17 @@ export function OrderHistoryBarChart(
   };
   useEffect(() => {
     fetchData();
-  }, [cardCode, sDate, eDate])
+      }, [cardCode, sDate, eDate])
 
   
+  useEffect(() => {
+	if (typeof graphData !== 'undefined') {
+		if (graphData.orders.length != 0) {
+		setExportURL(typedArrayToURL(exportToCSV(graphData.orders), "text/csv"));
+		}	
+	};
+  }, [graphData])
+
   return (
   <>
       <Card className="py-2">
@@ -94,7 +115,10 @@ export function OrderHistoryBarChart(
             <div>
               <DatePicker date={eDate} setDate={setEDate} pickerTitle="To:" />
             </div>
-          </div>
+	    <div>
+	      <a href={exportURL} download={cardCode+sDate.toISOString().split('T')[0]+eDate.toISOString().split('T')[0]} className="hover:underline"> Export as csv</a>
+	    </div>
+	</div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
           <ChartContainer

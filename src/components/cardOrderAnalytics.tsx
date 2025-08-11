@@ -10,9 +10,6 @@ export function CardOrderAnalytics() {
 	const [cardCode, setCardCode] = useState('C01667');
 	const [sDate, setSDate] = useState<DateNul>(aYearAgo);
 	const [eDate, setEDate] = useState<DateNul>(now);
-	// const [sDate, setSDate] = useState(aYearAgo.toISOString().split('T')[0]);
-	// const [eDate, setEDate] = useState(new Date().toISOString().split('T')[0]);
-
 
 	return (
 	<>
