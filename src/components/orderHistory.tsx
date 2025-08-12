@@ -31,13 +31,18 @@ const chartConfig = {
 import { useState, useEffect } from 'react';
 import type {CardCode, DateNul} from '@/components/types'
 import { baseUrl } from "../EnvVars.tsx"
-type Orders = {
-  invDate: string
-  quantityOrdered: string
-}[]
+
+type Order = {
+    invDate: string
+    quantityOrdered: string
+}
+// type Orders = {
+//   invDate: string
+//   quantityOrdered: string
+// }[]
 
 type OrderData = {
-  orders: Orders
+  orders: Order[]
 }
 
 import { convertDateToQueryFormat } from "./helperFuncs.tsx"
@@ -58,14 +63,19 @@ export function OrderHistoryBarChart(
   const [graphData, setGraphData] = useState<OrderData>();
   const [exportURL, setExportURL] = useState('');
 
-  function exportToCSV() {
-	const header = Object.keys(graphData.orders[0]);
-	const replacer = (value) => value == null ? "null" : value;	
-	const contents = graphData.orders.map((entry) => header.map((fieldname) => replacer(entry[fieldname])).join(",")).join("\r\n");
+  function replacer(value: string): string {
+    return value == null ? "null" : value;	
+  }
+
+  function exportToCSV(data: OrderData) {
+	const header = Object.keys(data.orders[0]);
+	const contents = data.orders.map((entry: Order) => 
+    header.map((fieldname) => replacer(entry[fieldname as keyof Order])).join(","))
+  .join("\r\n");
 	return [header.join(','), contents].join("\r\n");
   }
 
-  function typedArrayToURL(contents, mimeType) {
+  function typedArrayToURL(contents: string, mimeType: string) {
 	return URL.createObjectURL(
 		new Blob([contents], {type: mimeType}),
 	);
@@ -91,7 +101,7 @@ export function OrderHistoryBarChart(
   useEffect(() => {
 	if (typeof graphData !== 'undefined') {
 		if (graphData.orders.length != 0) {
-		setExportURL(typedArrayToURL(exportToCSV(graphData.orders), "text/csv"));
+		setExportURL(typedArrayToURL(exportToCSV(graphData), "text/csv"));
 		}	
 	};
   }, [graphData])
@@ -116,7 +126,7 @@ export function OrderHistoryBarChart(
               <DatePicker date={eDate} setDate={setEDate} pickerTitle="To:" />
             </div>
 	    <div>
-	      <a href={exportURL} download={cardCode+sDate.toISOString().split('T')[0]+eDate.toISOString().split('T')[0]} className="hover:underline"> Export as csv</a>
+	      <a href={exportURL} download={cardCode+sDate?.toISOString().split('T')[0]+eDate?.toISOString().split('T')[0]} className="hover:underline"> Export as csv</a>
 	    </div>
 	</div>
       </CardHeader>
