@@ -77,7 +77,7 @@ export function ClientCards({setCardCode}: CardAnalyticsProps) {
             </div>
         </CardHeader>
         <CardContent>      
-	<div className = "min-h-[160px] max-h-[300px] overflow-y-scroll resize-y ">
+	<div className = "min-h-[160px] max-h-[200px] overflow-y-scroll resize-y ">
             <Table>
                 <TableHeader>
                 <TableRow>
