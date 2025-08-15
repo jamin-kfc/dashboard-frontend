@@ -10,7 +10,6 @@ export function CardOrderAnalytics() {
 	const [cardCode, setCardCode] = useState('C01667');
 	const [sDate, setSDate] = useState<DateNul>(aYearAgo);
 	const [eDate, setEDate] = useState<DateNul>(now);
-
 	return (
 	<>
 		<ClientCards setCardCode={setCardCode} />

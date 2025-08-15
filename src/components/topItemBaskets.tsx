@@ -32,7 +32,7 @@ if (!response.ok) {
 
 const results: topItemBaskets = await response.json();
 
-const numEntries = 6;
+const NUM_ENTRIES = 6;
 
 export default function TopItemBaskets() {
 
@@ -57,7 +57,7 @@ export default function TopItemBaskets() {
                                 </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                {results.slice(0, numEntries).map(iSet =>
+                                {results.slice(0, NUM_ENTRIES).map(iSet =>
                                     <TableRow key={iSet.id}>
                                         <TableCell className="font-medium">{iSet.support}</TableCell>
                                         <TableCell className="text-center">{iSet.itemsets}</TableCell>

@@ -47,9 +47,9 @@ export function ClientCards({setCardCode}: CardAnalyticsProps) {
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
 	setShownUsers([]);
 	setFilteredUsers([]);
-    const searchTerm = e.target.value;
-    setSearchItem(searchTerm);
-	const usersToShow = users.filter( (user) => user.cardName.toLowerCase()
+    	const searchTerm = e.target.value;
+    	setSearchItem(searchTerm);
+    	const usersToShow = users.filter( (user) => user.cardName.toLowerCase()
 					.includes(searchTerm.toLowerCase())  || 
                     user.cardCode.toLowerCase()
                     .includes(searchTerm.toLowerCase())  ||
@@ -85,7 +85,6 @@ export function ClientCards({setCardCode}: CardAnalyticsProps) {
                     <TableHead className="text-center">Sales Name</TableHead>
                     <TableHead className="text-center">Card Name</TableHead>
                     <TableHead className="text-center">Post Code</TableHead>
-
                 </TableRow>
                 </TableHeader>
                 <TableBody>
