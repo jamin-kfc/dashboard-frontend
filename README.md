@@ -1,4 +1,19 @@
+# Structure of the frontend
+
+Frontend is built using the a library called React.
+React allows you to describe the frontend in terms of components. This makes things highly reusable - as one benefit for example.
+The frontend is built with by a build tool known as Vite. Language wise typescript is used.
+Vite is quick. 
+
+The index.html is the base page for the website.
+The main function is run there.
+The main content of the page is provided by the App component - this is the gateway to all the other components.
+CardOrderAnalystics components include the client card list and the order history chart.
+TopItemBaskets displays the data from running the FP basket analysis algorithm on a certain client group code.
+
+
 # React + TypeScript + Vite
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
