@@ -117,7 +117,7 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
                   <CardTitle> Average Order Interval </CardTitle>
               </CardHeader>
               <CardContent className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-                  {orderIntervalMean.stat === undefined ? 'N/A' : orderIntervalMean.stat} Days
+                  {orderIntervalMean === undefined ? 'N/A' : orderIntervalMean.stat} Days
               </CardContent>
           </Card>
     
@@ -154,7 +154,7 @@ export function CardStatistics({cardCode}: OrderIntervalProps) {
           </CardHeader>
           <CardContent className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
               {
-		      recentSaleDate.stat === undefined ? 'N/A' : recentSaleDate.stat 
+		      recentSaleDate === undefined ? 'N/A' : recentSaleDate.stat 
 	      }
           </CardContent>
         </Card>
